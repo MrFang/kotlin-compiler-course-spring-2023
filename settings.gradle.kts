@@ -6,6 +6,7 @@ pluginManagement {
     }
     
 }
-rootProject.name = "kotlin-compiler-course-examples"
+rootProject.name = "transparent-kotlin-plugin"
 
-include("plugin-annotations")
+include("annotations")
+include("plugin")

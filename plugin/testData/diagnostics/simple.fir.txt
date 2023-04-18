@@ -1,0 +1,10 @@
+FILE: simple.kt
+    @R|me/mrfang/transparent/Transparent|() public final inline class Name : R|kotlin/Any| {
+        public constructor(s: R|kotlin/String|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val s: R|kotlin/String| = R|<local>/s|
+            public get(): R|kotlin/String|
+
+    }
