@@ -48,18 +48,32 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         )!!
 
         return scope.getFunctions(callableId.callableName)
-            .map {
+            .map { functionSymbol ->
                 buildSimpleFunction {
                     resolvePhase = FirResolvePhase.BODY_RESOLVE
                     moduleData = session.moduleData
                     origin = Key.origin
-                    name = it.name
-                    returnTypeRef = it.resolvedReturnTypeRef
-                    valueParameters.addAll(it.valueParameterSymbols.map { it.fir })
-                    typeParameters.addAll(it.typeParameterSymbols.map { it.fir })
-                    status = it.rawStatus
-                    symbol = FirNamedFunctionSymbol(callableId)
+                    name = functionSymbol.name
+                    returnTypeRef = functionSymbol.resolvedReturnTypeRef
+                    valueParameters.addAll(functionSymbol.valueParameterSymbols.map { it.fir })
+                    typeParameters.addAll(functionSymbol.typeParameterSymbols.map { it.fir })
+                    status = functionSymbol.rawStatus
+                    symbol = functionSymbol
                     body = buildBlock {
+//                        statements.add(
+//                            buildReturnExpression {
+//                                result = buildFunctionCall {
+//                                    explicitReceiver = buildPropertyAccessExpression {
+//                                        calleeReference = buildSimpleNamedReference { name = property.name }
+//                                    }
+//                                    calleeReference = buildSimpleNamedReference { name = functionSymbol.name }
+//                                    typeArguments.addAll(listOf()) // TODO
+//                                    argumentList = buildArgumentList {
+//                                        arguments.addAll(listOf()) // TODO
+//                                    }
+//                                }
+//                            }
+//                        )
                     }
                 }
             }
@@ -80,6 +94,7 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
             null
         )!!
 
+        println(scope.getCallableNames())
         return scope.getCallableNames()
     }
 

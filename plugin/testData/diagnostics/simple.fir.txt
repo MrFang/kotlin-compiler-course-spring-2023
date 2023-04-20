@@ -4,7 +4,28 @@ FILE: simple.kt
             super<R|kotlin/Any|>()
         }
 
-        public final val s: R|kotlin/String| = R|<local>/s|
-            public get(): R|kotlin/String|
+        private final val s: R|kotlin/String| = R|<local>/s|
+            private get(): R|kotlin/String|
+
+        public open fun hashCode(): R|kotlin/Int| {
+        }
+
+        public open operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+        }
+
+        public open fun toString(): R|kotlin/String| {
+        }
+
+        public open operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+        }
+
+        public open operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+        }
+
+        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+        }
+
+        public open fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+        }
 
     }
