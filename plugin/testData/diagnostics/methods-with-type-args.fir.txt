@@ -1,0 +1,34 @@
+FILE: methods-with-type-args.kt
+    public abstract class Foo : R|kotlin/Any| {
+        public constructor(): R|Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public abstract fun <In, Out> foo(a: R|In|): R|Out|
+
+    }
+    @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+        public constructor(f: R|Foo|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val f: R|Foo| = R|<local>/f|
+            private get(): R|Foo|
+
+        public final fun hashCode(): R|kotlin/Int| {
+            ^hashCode R|/Name.f|.R|kotlin/Any.hashCode|()
+        }
+
+        public final fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+            ^equals R|/Name.f|.R|kotlin/Any.equals|(R|<local>/other|)
+        }
+
+        public final fun toString(): R|kotlin/String| {
+            ^toString R|/Name.f|.R|kotlin/Any.toString|()
+        }
+
+        public final fun <In, Out> foo(a: R|In|): R|Out| {
+            ^foo R|/Name.f|.R|/Foo.foo|<R|In|, R|Out|>(R|<local>/a|)
+        }
+
+    }

@@ -22,6 +22,18 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("class-with-type-args.kt")
+    public void testClass_with_type_args() throws Exception {
+        runTest("testData/diagnostics/class-with-type-args.kt");
+    }
+
+    @Test
+    @TestMetadata("methods-with-type-args.kt")
+    public void testMethods_with_type_args() throws Exception {
+        runTest("testData/diagnostics/methods-with-type-args.kt");
+    }
+
+    @Test
     @TestMetadata("simple.kt")
     public void testSimple() throws Exception {
         runTest("testData/diagnostics/simple.kt");

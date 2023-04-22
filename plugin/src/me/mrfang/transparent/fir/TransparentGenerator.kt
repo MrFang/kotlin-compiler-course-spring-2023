@@ -1,25 +1,30 @@
 package me.mrfang.transparent.fir
 
 import org.jetbrains.kotlin.GeneratedDeclarationKey
+import org.jetbrains.kotlin.fir.FirFunctionTarget
 import org.jetbrains.kotlin.fir.FirSession
-import org.jetbrains.kotlin.fir.declarations.FirResolvePhase
-import org.jetbrains.kotlin.fir.declarations.builder.buildSimpleFunction
-import org.jetbrains.kotlin.fir.declarations.origin
 import org.jetbrains.kotlin.fir.declarations.utils.isInline
+import org.jetbrains.kotlin.fir.expressions.buildResolvedArgumentList
 import org.jetbrains.kotlin.fir.expressions.builder.buildBlock
+import org.jetbrains.kotlin.fir.expressions.builder.buildFunctionCall
+import org.jetbrains.kotlin.fir.expressions.builder.buildPropertyAccessExpression
+import org.jetbrains.kotlin.fir.expressions.builder.buildReturnExpression
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
-import org.jetbrains.kotlin.fir.moduleData
+import org.jetbrains.kotlin.fir.plugin.createMemberFunction
+import org.jetbrains.kotlin.fir.references.builder.buildResolvedNamedReference
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
 import org.jetbrains.kotlin.fir.resolve.scope
+import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutorByMap
 import org.jetbrains.kotlin.fir.scopes.FakeOverrideTypeCalculator
 import org.jetbrains.kotlin.fir.scopes.getFunctions
-import org.jetbrains.kotlin.fir.symbols.SymbolInternals
+import org.jetbrains.kotlin.fir.scopes.impl.toConeType
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirNamedFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
+import org.jetbrains.kotlin.fir.types.builder.buildResolvedTypeRef
+import org.jetbrains.kotlin.fir.types.builder.buildTypeProjectionWithVariance
 import org.jetbrains.kotlin.fir.types.canBeNull
-import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
@@ -33,14 +38,13 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         )
     }
 
-    @OptIn(SymbolInternals::class)
     override fun generateFunctions(
         callableId: CallableId,
         context: MemberGenerationContext?
     ): List<FirNamedFunctionSymbol> {
         val classSymbol = context!!.owner
         val property = classSymbol.declarationSymbols.find { it is FirPropertySymbol } as FirPropertySymbol
-        val scope = property.resolvedReturnTypeRef.coneType.scope(
+        val scope = property.resolvedReturnType.scope(
             session,
             ScopeSession(),
             FakeOverrideTypeCalculator.DoNothing,
@@ -49,33 +53,73 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
 
         return scope.getFunctions(callableId.callableName)
             .map { functionSymbol ->
-                buildSimpleFunction {
-                    resolvePhase = FirResolvePhase.BODY_RESOLVE
-                    moduleData = session.moduleData
-                    origin = Key.origin
-                    name = functionSymbol.name
-                    returnTypeRef = functionSymbol.resolvedReturnTypeRef
-                    valueParameters.addAll(functionSymbol.valueParameterSymbols.map { it.fir })
-                    typeParameters.addAll(functionSymbol.typeParameterSymbols.map { it.fir })
-                    status = functionSymbol.rawStatus
-                    symbol = functionSymbol
-                    body = buildBlock {
-//                        statements.add(
-//                            buildReturnExpression {
-//                                result = buildFunctionCall {
-//                                    explicitReceiver = buildPropertyAccessExpression {
-//                                        calleeReference = buildSimpleNamedReference { name = property.name }
-//                                    }
-//                                    calleeReference = buildSimpleNamedReference { name = functionSymbol.name }
-//                                    typeArguments.addAll(listOf()) // TODO
-//                                    argumentList = buildArgumentList {
-//                                        arguments.addAll(listOf()) // TODO
-//                                    }
-//                                }
-//                            }
-//                        )
+                val generatedFunction = createMemberFunction(
+                    classSymbol,
+                    Key,
+                    callableId.callableName,
+                    { typeParams ->
+                        val rawMapping = typeParams.map { it.symbol to it.symbol.toConeType() }
+                        val substitutor = ConeSubstitutorByMap(
+                            useSiteSession = session,
+                            substitution = mapOf(*rawMapping.toTypedArray())
+                        )
+                        substitutor.substituteOrSelf(functionSymbol.resolvedReturnType)
+                    }
+                ) {
+                    for (symbol in functionSymbol.valueParameterSymbols) {
+                        valueParameter(symbol.name, symbol.resolvedReturnType)
+                    }
+
+                    for (symbol in functionSymbol.typeParameterSymbols) {
+                        typeParameter(symbol.name)
                     }
                 }
+                generatedFunction.replaceBody(
+                    buildBlock {
+                        statements.add(
+                            buildReturnExpression {
+                                result = buildFunctionCall {
+                                    explicitReceiver = buildPropertyAccessExpression {
+                                        calleeReference = buildResolvedNamedReference {
+                                            name = property.name
+                                            resolvedSymbol = property
+                                        }
+                                        typeRef = property.resolvedReturnTypeRef
+                                    }
+                                    typeRef = generatedFunction.returnTypeRef
+                                    calleeReference = buildResolvedNamedReference {
+                                        name = functionSymbol.name
+                                        resolvedSymbol = functionSymbol
+                                    }
+                                    typeArguments.addAll(
+                                        generatedFunction.typeParameters.map {
+                                            buildTypeProjectionWithVariance {
+                                                variance = it.variance
+                                                typeRef = buildResolvedTypeRef {
+                                                    type = it.symbol.toConeType()
+                                                }
+                                            }
+                                        }
+                                    )
+                                    val mapping = generatedFunction.valueParameters.map {
+                                        buildPropertyAccessExpression {
+                                            calleeReference = buildResolvedNamedReference {
+                                                name = it.name
+                                                resolvedSymbol = it.symbol
+                                            }
+                                            typeRef = it.returnTypeRef
+                                        } to it
+                                    }
+                                    argumentList = buildResolvedArgumentList(linkedMapOf(*mapping.toTypedArray()))
+                                }
+                                target = FirFunctionTarget(null, isLambda = false).apply {
+                                    bind(generatedFunction)
+                                }
+                            }
+                        )
+                    }
+                )
+                generatedFunction
             }
             .map { it.symbol }
     }
@@ -83,18 +127,18 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
     override fun getCallableNamesForClass(classSymbol: FirClassSymbol<*>, context: MemberGenerationContext): Set<Name> {
         if (!classSymbol.resolvedAnnotationClassIds.contains(TRANSPARENT_CLASS_ID)) return emptySet()
 
-        require(classSymbol.isInline) // Does inline == value?
+        require(classSymbol.isInline)
+        require(classSymbol.typeParameterSymbols.isEmpty())
         val property = classSymbol.declarationSymbols.find { it is FirPropertySymbol } as FirPropertySymbol
-        val t = property.resolvedReturnTypeRef
+        val t = property.resolvedReturnType
         require(!t.canBeNull)
-        val scope = t.coneType.scope(
+        val scope = t.scope(
             session,
             ScopeSession(),
             FakeOverrideTypeCalculator.DoNothing,
             null
         )!!
 
-        println(scope.getCallableNames())
         return scope.getCallableNames()
     }
 

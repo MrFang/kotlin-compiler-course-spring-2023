@@ -1,5 +1,5 @@
 FILE: simple.kt
-    @R|me/mrfang/transparent/Transparent|() public final inline class Name : R|kotlin/Any| {
+    @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
         public constructor(s: R|kotlin/String|): R|Name| {
             super<R|kotlin/Any|>()
         }
@@ -7,25 +7,32 @@ FILE: simple.kt
         private final val s: R|kotlin/String| = R|<local>/s|
             private get(): R|kotlin/String|
 
-        public open fun hashCode(): R|kotlin/Int| {
+        public final fun hashCode(): R|kotlin/Int| {
+            ^hashCode R|/Name.s|.R|kotlin/Any.hashCode|()
         }
 
-        public open operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+        public final fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+            ^equals R|/Name.s|.R|kotlin/String.equals|(R|<local>/other|)
         }
 
-        public open fun toString(): R|kotlin/String| {
+        public final fun toString(): R|kotlin/String| {
+            ^toString R|/Name.s|.R|kotlin/String.toString|()
         }
 
-        public open operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+        public final fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+            ^compareTo R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/other|)
         }
 
-        public open operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+        public final fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+            ^get R|/Name.s|.R|kotlin/String.get|(R|<local>/index|)
         }
 
-        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+        public final fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus R|/Name.s|.R|kotlin/String.plus|(R|<local>/other|)
         }
 
-        public open fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+            ^subSequence R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
         }
 
     }
