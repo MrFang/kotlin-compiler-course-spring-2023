@@ -38,4 +38,38 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     public void testSimple() throws Exception {
         runTest("testData/diagnostics/simple.kt");
     }
+
+    @Test
+    @TestMetadata("transparent-class-with-type-args.kt")
+    public void testTransparent_class_with_type_args() throws Exception {
+        runTest("testData/diagnostics/transparent-class-with-type-args.kt");
+    }
+
+    @Test
+    @TestMetadata("transparent-specific-methods.kt")
+    public void testTransparent_specific_methods() throws Exception {
+        runTest("testData/diagnostics/transparent-specific-methods.kt");
+    }
+
+    @Nested
+    @TestMetadata("testData/diagnostics/errors")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Errors {
+        @Test
+        public void testAllFilesPresentInErrors() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("testData/diagnostics/errors"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("transparent-no-inline.kt")
+        public void testTransparent_no_inline() throws Exception {
+            runTest("testData/diagnostics/errors/transparent-no-inline.kt");
+        }
+
+        @Test
+        @TestMetadata("transparent-nullable-property.kt")
+        public void testTransparent_nullable_property() throws Exception {
+            runTest("testData/diagnostics/errors/transparent-nullable-property.kt");
+        }
+    }
 }

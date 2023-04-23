@@ -1,8 +1,6 @@
 package me.mrfang.transparent.services
 
 import me.mrfang.transparent.SimplePluginRegistrar
-import me.mrfang.transparent.ir.SimpleIrGenerationExtension
-import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrarAdapter
@@ -16,6 +14,5 @@ class ExtensionRegistrarConfigurator(testServices: TestServices) : EnvironmentCo
         configuration: CompilerConfiguration
     ) {
         FirExtensionRegistrarAdapter.registerExtension(SimplePluginRegistrar())
-        IrGenerationExtension.registerExtension(SimpleIrGenerationExtension())
     }
 }

@@ -1,0 +1,50 @@
+FILE: transparent-class-with-type-args.kt
+    @R|kotlin/jvm/JvmInline|() @R|me/mrfang/transparent/Transparent|() public final inline class Name<T : R|kotlin/Number|> : R|kotlin/Any| {
+        public constructor<T : R|kotlin/Number|>(t: R|T|): R|Name<T>| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val t: R|T| = R|<local>/t|
+            private get(): R|T|
+
+        public final fun toDouble(): R|kotlin/Double| {
+            ^toDouble R|/Name.t|.R|kotlin/Number.toDouble|()
+        }
+
+        public final fun toChar(): R|kotlin/Char| {
+            ^toChar R|/Name.t|.R|kotlin/Number.toChar|()
+        }
+
+        public final fun hashCode(): R|kotlin/Int| {
+            ^hashCode R|/Name.t|.R|kotlin/Any.hashCode|()
+        }
+
+        public final fun toShort(): R|kotlin/Short| {
+            ^toShort R|/Name.t|.R|kotlin/Number.toShort|()
+        }
+
+        public final fun toLong(): R|kotlin/Long| {
+            ^toLong R|/Name.t|.R|kotlin/Number.toLong|()
+        }
+
+        public final fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+            ^equals R|/Name.t|.R|kotlin/Any.equals|(R|<local>/other|)
+        }
+
+        public final fun toString(): R|kotlin/String| {
+            ^toString R|/Name.t|.R|kotlin/Any.toString|()
+        }
+
+        public final fun toByte(): R|kotlin/Byte| {
+            ^toByte R|/Name.t|.R|kotlin/Number.toByte|()
+        }
+
+        public final fun toFloat(): R|kotlin/Float| {
+            ^toFloat R|/Name.t|.R|kotlin/Number.toFloat|()
+        }
+
+        public final fun toInt(): R|kotlin/Int| {
+            ^toInt R|/Name.t|.R|kotlin/Number.toInt|()
+        }
+
+    }

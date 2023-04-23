@@ -21,4 +21,10 @@ public class BoxTestGenerated extends AbstractBoxTest {
     public void testAllFilesPresentInBox() throws Exception {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("testData/box"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
+
+    @Test
+    @TestMetadata("simple.kt")
+    public void testSimple() throws Exception {
+        runTest("testData/box/simple.kt");
+    }
 }

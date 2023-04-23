@@ -3,6 +3,9 @@ package me.mrfang.transparent.fir
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 import org.jetbrains.kotlin.fir.FirFunctionTarget
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.analysis.checkers.leastUpperBound
+import org.jetbrains.kotlin.fir.declarations.getStringArrayArgument
+import org.jetbrains.kotlin.fir.declarations.toAnnotationClassId
 import org.jetbrains.kotlin.fir.declarations.utils.isInline
 import org.jetbrains.kotlin.fir.expressions.buildResolvedArgumentList
 import org.jetbrains.kotlin.fir.expressions.builder.buildBlock
@@ -22,6 +25,7 @@ import org.jetbrains.kotlin.fir.scopes.impl.toConeType
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirNamedFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
+import org.jetbrains.kotlin.fir.types.ConeKotlinType
 import org.jetbrains.kotlin.fir.types.builder.buildResolvedTypeRef
 import org.jetbrains.kotlin.fir.types.builder.buildTypeProjectionWithVariance
 import org.jetbrains.kotlin.fir.types.canBeNull
@@ -32,7 +36,7 @@ import org.jetbrains.kotlin.name.Name
 
 class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtension(session) {
     companion object {
-        val TRANSPARENT_CLASS_ID = ClassId(
+        val TRANSPARENT_ANNOTATION_CLASS_ID = ClassId(
             FqName.fromSegments(listOf("me", "mrfang", "transparent")),
             Name.identifier("Transparent")
         )
@@ -43,13 +47,8 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         context: MemberGenerationContext?
     ): List<FirNamedFunctionSymbol> {
         val classSymbol = context!!.owner
-        val property = classSymbol.declarationSymbols.find { it is FirPropertySymbol } as FirPropertySymbol
-        val scope = property.resolvedReturnType.scope(
-            session,
-            ScopeSession(),
-            FakeOverrideTypeCalculator.DoNothing,
-            null
-        )!!
+        val (property, t) = getPropertyWithType(classSymbol)
+        val scope = t.scope()
 
         return scope.getFunctions(callableId.callableName)
             .map { functionSymbol ->
@@ -74,6 +73,7 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                         typeParameter(symbol.name)
                     }
                 }
+
                 generatedFunction.replaceBody(
                     buildBlock {
                         statements.add(
@@ -119,28 +119,42 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                         )
                     }
                 )
+
+//                generatedFunction.replaceStatus(functionSymbol.rawStatus.transform(modality = Modality.FINAL))
+
                 generatedFunction
             }
             .map { it.symbol }
     }
 
     override fun getCallableNamesForClass(classSymbol: FirClassSymbol<*>, context: MemberGenerationContext): Set<Name> {
-        if (!classSymbol.resolvedAnnotationClassIds.contains(TRANSPARENT_CLASS_ID)) return emptySet()
+        if (!classSymbol.resolvedAnnotationClassIds.contains(TRANSPARENT_ANNOTATION_CLASS_ID)) return emptySet()
+        if (!classSymbol.isInline) return emptySet()
 
-        require(classSymbol.isInline)
-        require(classSymbol.typeParameterSymbols.isEmpty())
-        val property = classSymbol.declarationSymbols.find { it is FirPropertySymbol } as FirPropertySymbol
-        val t = property.resolvedReturnType
-        require(!t.canBeNull)
-        val scope = t.scope(
-            session,
-            ScopeSession(),
-            FakeOverrideTypeCalculator.DoNothing,
-            null
-        )!!
+        val (_, t) = getPropertyWithType(classSymbol)
+        if (t.canBeNull) return emptySet()
+        val scope = t.scope()
 
-        return scope.getCallableNames()
+        val callableNames = scope.getCallableNames()
+        val requiredMethods = classSymbol.resolvedAnnotationsWithArguments
+            .find { it.toAnnotationClassId(session) == TRANSPARENT_ANNOTATION_CLASS_ID }!!
+            .getStringArrayArgument(Name.identifier("methods"))
+            ?.map(Name::identifier)
+            ?.toSet() ?: setOf()
+
+        require(callableNames.containsAll(requiredMethods)) // TODO: rewrite to checker
+
+        return requiredMethods.ifEmpty { callableNames }
     }
+
+    private fun getPropertyWithType(classSymbol: FirClassSymbol<*>): Pair<FirPropertySymbol, ConeKotlinType> {
+        val property = classSymbol.declarationSymbols.find { it is FirPropertySymbol } as FirPropertySymbol
+        val t = property.resolvedReturnType.leastUpperBound(session)
+
+        return Pair(property, t)
+    }
+
+    private fun ConeKotlinType.scope() = scope(session, ScopeSession(), FakeOverrideTypeCalculator.DoNothing, null)!!
 
     object Key : GeneratedDeclarationKey()
 }
