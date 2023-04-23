@@ -1,11 +1,11 @@
 package me.mrfang.transparent.fir
 
+import me.mrfang.transparent.requiredTransparentMethods
+import me.mrfang.transparent.scope
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 import org.jetbrains.kotlin.fir.FirFunctionTarget
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.leastUpperBound
-import org.jetbrains.kotlin.fir.declarations.getStringArrayArgument
-import org.jetbrains.kotlin.fir.declarations.toAnnotationClassId
 import org.jetbrains.kotlin.fir.declarations.utils.isInline
 import org.jetbrains.kotlin.fir.expressions.buildResolvedArgumentList
 import org.jetbrains.kotlin.fir.expressions.builder.buildBlock
@@ -16,10 +16,8 @@ import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
 import org.jetbrains.kotlin.fir.references.builder.buildResolvedNamedReference
-import org.jetbrains.kotlin.fir.resolve.ScopeSession
 import org.jetbrains.kotlin.fir.resolve.scope
 import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutorByMap
-import org.jetbrains.kotlin.fir.scopes.FakeOverrideTypeCalculator
 import org.jetbrains.kotlin.fir.scopes.getFunctions
 import org.jetbrains.kotlin.fir.scopes.impl.toConeType
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
@@ -48,7 +46,7 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
     ): List<FirNamedFunctionSymbol> {
         val classSymbol = context!!.owner
         val (property, t) = getPropertyWithType(classSymbol)
-        val scope = t.scope()
+        val scope = t.scope(session)
 
         return scope.getFunctions(callableId.callableName)
             .map { functionSymbol ->
@@ -133,16 +131,12 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
 
         val (_, t) = getPropertyWithType(classSymbol)
         if (t.canBeNull) return emptySet()
-        val scope = t.scope()
+        val scope = t.scope(session)
 
         val callableNames = scope.getCallableNames()
-        val requiredMethods = classSymbol.resolvedAnnotationsWithArguments
-            .find { it.toAnnotationClassId(session) == TRANSPARENT_ANNOTATION_CLASS_ID }!!
-            .getStringArrayArgument(Name.identifier("methods"))
-            ?.map(Name::identifier)
-            ?.toSet() ?: setOf()
+        val requiredMethods = classSymbol.requiredTransparentMethods(session)
 
-        require(callableNames.containsAll(requiredMethods)) // TODO: rewrite to checker
+        if (!callableNames.containsAll(requiredMethods)) return emptySet()
 
         return requiredMethods.ifEmpty { callableNames }
     }
@@ -153,8 +147,6 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
 
         return Pair(property, t)
     }
-
-    private fun ConeKotlinType.scope() = scope(session, ScopeSession(), FakeOverrideTypeCalculator.DoNothing, null)!!
 
     object Key : GeneratedDeclarationKey()
 }

@@ -1,0 +1,10 @@
+FILE: transparent-method-not-exists.kt
+    @R|me/mrfang/transparent/Transparent|(methods = <implicitArrayOf>(String(foo))) @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+        public constructor(s: R|kotlin/String|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val s: R|kotlin/String| = R|<local>/s|
+            private get(): R|kotlin/String|
+
+    }

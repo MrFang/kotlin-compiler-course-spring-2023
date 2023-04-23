@@ -61,6 +61,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         }
 
         @Test
+        @TestMetadata("transparent-method-not-exists.kt")
+        public void testTransparent_method_not_exists() throws Exception {
+            runTest("testData/diagnostics/errors/transparent-method-not-exists.kt");
+        }
+
+        @Test
         @TestMetadata("transparent-no-inline.kt")
         public void testTransparent_no_inline() throws Exception {
             runTest("testData/diagnostics/errors/transparent-no-inline.kt");
