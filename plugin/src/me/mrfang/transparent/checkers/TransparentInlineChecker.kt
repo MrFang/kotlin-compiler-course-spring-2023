@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirClassChecker
 import org.jetbrains.kotlin.fir.declarations.FirClass
 import org.jetbrains.kotlin.fir.declarations.utils.isInline
 
-object InlineTransparentChecker : FirClassChecker() {
+object TransparentInlineChecker : FirClassChecker() {
     override fun check(declaration: FirClass, context: CheckerContext, reporter: DiagnosticReporter) {
         if (!declaration.isTransparent(context.session)) return
 

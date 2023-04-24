@@ -19,7 +19,7 @@ FILE: class-with-type-args.kt
             ^hashCode R|/Name.f|.R|kotlin/Any.hashCode|()
         }
 
-        public final fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+        public final operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
             ^equals R|/Name.f|.R|kotlin/Any.equals|(R|<local>/other|)
         }
 

@@ -27,7 +27,7 @@ FILE: transparent-class-with-type-args.kt
             ^toLong R|/Name.t|.R|kotlin/Number.toLong|()
         }
 
-        public final fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
+        public final operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
             ^equals R|/Name.t|.R|kotlin/Any.equals|(R|<local>/other|)
         }
 

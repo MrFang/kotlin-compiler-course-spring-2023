@@ -28,6 +28,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("inner-class-with-private-methods.kt")
+    public void testInner_class_with_private_methods() throws Exception {
+        runTest("testData/diagnostics/inner-class-with-private-methods.kt");
+    }
+
+    @Test
     @TestMetadata("methods-with-type-args.kt")
     public void testMethods_with_type_args() throws Exception {
         runTest("testData/diagnostics/methods-with-type-args.kt");

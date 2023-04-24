@@ -1,19 +1,33 @@
-FILE: methods-with-type-args.kt
-    public abstract class Foo : R|kotlin/Any| {
+FILE: inner-class-with-private-methods.kt
+    public final class Foo : R|kotlin/Any| {
         public constructor(): R|Foo| {
             super<R|kotlin/Any|>()
         }
 
-        public abstract fun <In, Out> foo(a: R|In|): R|Out|
+        public final fun _public(): R|kotlin/Unit| {
+        }
+
+        protected final fun _protected(): R|kotlin/Unit| {
+        }
+
+        internal final fun _internal(): R|kotlin/Unit| {
+        }
+
+        private final fun _private(): R|kotlin/Unit| {
+        }
 
     }
-    @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+    @R|kotlin/jvm/JvmInline|() @R|me/mrfang/transparent/Transparent|() public final inline class Name : R|kotlin/Any| {
         public constructor(f: R|Foo|): R|Name| {
             super<R|kotlin/Any|>()
         }
 
         private final val f: R|Foo| = R|<local>/f|
             private get(): R|Foo|
+
+        public final fun _public(): R|kotlin/Unit| {
+            ^_public R|/Name.f|.R|/Foo._public|()
+        }
 
         public final fun hashCode(): R|kotlin/Int| {
             ^hashCode R|/Name.f|.R|kotlin/Any.hashCode|()
@@ -25,10 +39,6 @@ FILE: methods-with-type-args.kt
 
         public final fun toString(): R|kotlin/String| {
             ^toString R|/Name.f|.R|kotlin/Any.toString|()
-        }
-
-        public final fun <In, Out> foo(a: R|In|): R|Out| {
-            ^foo R|/Name.f|.R|/Foo.foo|<R|In|, R|Out|>(R|<local>/a|)
         }
 
     }

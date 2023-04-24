@@ -48,3 +48,6 @@ value class Name(private val s: String)
 @StringPlus
 value class Age(private val i: Int)
 ```
+
+- Internal functions for classes in the same module
+- Generate `val`'s

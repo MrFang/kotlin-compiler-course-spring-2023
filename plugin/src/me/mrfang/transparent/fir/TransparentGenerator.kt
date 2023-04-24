@@ -3,6 +3,9 @@ package me.mrfang.transparent.fir
 import me.mrfang.transparent.requiredTransparentMethods
 import me.mrfang.transparent.scope
 import org.jetbrains.kotlin.GeneratedDeclarationKey
+import org.jetbrains.kotlin.descriptors.EffectiveVisibility
+import org.jetbrains.kotlin.descriptors.Modality
+import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.fir.FirFunctionTarget
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.leastUpperBound
@@ -14,6 +17,7 @@ import org.jetbrains.kotlin.fir.expressions.builder.buildPropertyAccessExpressio
 import org.jetbrains.kotlin.fir.expressions.builder.buildReturnExpression
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
+import org.jetbrains.kotlin.fir.extensions.transform
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
 import org.jetbrains.kotlin.fir.references.builder.buildResolvedNamedReference
 import org.jetbrains.kotlin.fir.resolve.scope
@@ -70,6 +74,15 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                     for (symbol in functionSymbol.typeParameterSymbols) {
                         typeParameter(symbol.name)
                     }
+
+                    with(functionSymbol.resolvedStatus) {
+                        status {
+                            isInline = this@with.isInline
+                            isOperator = this@with.isOperator
+                            isInfix = this@with.isInfix
+                            isSuspend = this@with.isSuspend
+                        }
+                    }
                 }
 
                 generatedFunction.replaceBody(
@@ -89,16 +102,14 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                                         name = functionSymbol.name
                                         resolvedSymbol = functionSymbol
                                     }
-                                    typeArguments.addAll(
-                                        generatedFunction.typeParameters.map {
-                                            buildTypeProjectionWithVariance {
-                                                variance = it.variance
-                                                typeRef = buildResolvedTypeRef {
-                                                    type = it.symbol.toConeType()
-                                                }
+                                    typeArguments.addAll(generatedFunction.typeParameters.map {
+                                        buildTypeProjectionWithVariance {
+                                            variance = it.variance
+                                            typeRef = buildResolvedTypeRef {
+                                                type = it.symbol.toConeType()
                                             }
                                         }
-                                    )
+                                    })
                                     val mapping = generatedFunction.valueParameters.map {
                                         buildPropertyAccessExpression {
                                             calleeReference = buildResolvedNamedReference {
@@ -117,9 +128,6 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                         )
                     }
                 )
-
-//                generatedFunction.replaceStatus(functionSymbol.rawStatus.transform(modality = Modality.FINAL))
-
                 generatedFunction
             }
             .map { it.symbol }
