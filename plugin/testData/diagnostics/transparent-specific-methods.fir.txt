@@ -7,8 +7,8 @@ FILE: transparent-specific-methods.kt
         private final val s: R|kotlin/String| = R|<local>/s|
             private get(): R|kotlin/String|
 
-        public final fun toString(): R|kotlin/String| {
-            ^toString R|/Name.s|.R|kotlin/String.toString|()
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.s|.R|kotlin/String.toString|()
         }
 
     }

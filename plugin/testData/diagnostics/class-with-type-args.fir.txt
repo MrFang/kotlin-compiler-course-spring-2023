@@ -15,20 +15,12 @@ FILE: class-with-type-args.kt
         private final val f: R|Foo<kotlin/String>| = R|<local>/f|
             private get(): R|Foo<kotlin/String>|
 
-        public final fun hashCode(): R|kotlin/Int| {
-            ^hashCode R|/Name.f|.R|kotlin/Any.hashCode|()
-        }
-
-        public final operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
-            ^equals R|/Name.f|.R|kotlin/Any.equals|(R|<local>/other|)
-        }
-
-        public final fun toString(): R|kotlin/String| {
-            ^toString R|/Name.f|.R|kotlin/Any.toString|()
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
         }
 
         public final fun foo(): R|kotlin/String| {
-            ^foo R|/Name.f|.R|SubstitutionOverride</Foo.foo: R|kotlin/String|>|()
+            ^foo this@R|/Name|.R|/Name.f|.R|SubstitutionOverride</Foo.foo: R|kotlin/String|>|()
         }
 
     }

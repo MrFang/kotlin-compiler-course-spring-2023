@@ -7,32 +7,24 @@ FILE: simple.kt
         private final val s: R|kotlin/String| = R|<local>/s|
             private get(): R|kotlin/String|
 
-        public final fun hashCode(): R|kotlin/Int| {
-            ^hashCode R|/Name.s|.R|kotlin/Any.hashCode|()
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.s|.R|kotlin/String.toString|()
         }
 
-        public final fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
-            ^equals R|/Name.s|.R|kotlin/String.equals|(R|<local>/other|)
+        public final operator fun compareTo(_other: R|kotlin/String|): R|kotlin/Int| {
+            ^compareTo this@R|/Name|.R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/_other|)
         }
 
-        public final fun toString(): R|kotlin/String| {
-            ^toString R|/Name.s|.R|kotlin/String.toString|()
+        public final operator fun get(_index: R|kotlin/Int|): R|kotlin/Char| {
+            ^get this@R|/Name|.R|/Name.s|.R|kotlin/String.get|(R|<local>/_index|)
         }
 
-        public final fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
-            ^compareTo R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/other|)
+        public final operator fun plus(_other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus this@R|/Name|.R|/Name.s|.R|kotlin/String.plus|(R|<local>/_other|)
         }
 
-        public final fun get(index: R|kotlin/Int|): R|kotlin/Char| {
-            ^get R|/Name.s|.R|kotlin/String.get|(R|<local>/index|)
-        }
-
-        public final fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
-            ^plus R|/Name.s|.R|kotlin/String.plus|(R|<local>/other|)
-        }
-
-        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
-            ^subSequence R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+        public final fun subSequence(_startIndex: R|kotlin/Int|, _endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+            ^subSequence this@R|/Name|.R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/_startIndex|, R|<local>/_endIndex|)
         }
 
     }

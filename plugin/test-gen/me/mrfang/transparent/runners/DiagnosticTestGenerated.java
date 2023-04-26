@@ -28,6 +28,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("fir-validaton.kt")
+    public void testFir_validaton() throws Exception {
+        runTest("testData/diagnostics/fir-validaton.kt");
+    }
+
+    @Test
     @TestMetadata("inner-class-with-private-methods.kt")
     public void testInner_class_with_private_methods() throws Exception {
         runTest("testData/diagnostics/inner-class-with-private-methods.kt");

@@ -26,19 +26,23 @@ FILE: inner-class-with-private-methods.kt
             private get(): R|Foo|
 
         public final fun _public(): R|kotlin/Unit| {
-            ^_public R|/Name.f|.R|/Foo._public|()
+            ^_public this@R|/Name|.R|/Name.f|.R|/Foo._public|()
         }
 
-        public final fun hashCode(): R|kotlin/Int| {
-            ^hashCode R|/Name.f|.R|kotlin/Any.hashCode|()
+        public final fun _protected(): R|kotlin/Unit| {
+            ^_protected this@R|/Name|.R|/Name.f|.R|/Foo._protected|()
         }
 
-        public final operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
-            ^equals R|/Name.f|.R|kotlin/Any.equals|(R|<local>/other|)
+        public final fun _private(): R|kotlin/Unit| {
+            ^_private this@R|/Name|.R|/Name.f|.R|/Foo._private|()
         }
 
-        public final fun toString(): R|kotlin/String| {
-            ^toString R|/Name.f|.R|kotlin/Any.toString|()
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
+        }
+
+        public final fun _internal(): R|kotlin/Unit| {
+            ^_internal this@R|/Name|.R|/Name.f|.R|/Foo._internal|()
         }
 
     }

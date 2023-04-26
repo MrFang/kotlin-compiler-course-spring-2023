@@ -8,43 +8,35 @@ FILE: transparent-class-with-type-args.kt
             private get(): R|T|
 
         public final fun toDouble(): R|kotlin/Double| {
-            ^toDouble R|/Name.t|.R|kotlin/Number.toDouble|()
+            ^toDouble this@R|/Name|.R|/Name.t|.R|kotlin/Number.toDouble|()
         }
 
         public final fun toChar(): R|kotlin/Char| {
-            ^toChar R|/Name.t|.R|kotlin/Number.toChar|()
-        }
-
-        public final fun hashCode(): R|kotlin/Int| {
-            ^hashCode R|/Name.t|.R|kotlin/Any.hashCode|()
+            ^toChar this@R|/Name|.R|/Name.t|.R|kotlin/Number.toChar|()
         }
 
         public final fun toShort(): R|kotlin/Short| {
-            ^toShort R|/Name.t|.R|kotlin/Number.toShort|()
+            ^toShort this@R|/Name|.R|/Name.t|.R|kotlin/Number.toShort|()
         }
 
         public final fun toLong(): R|kotlin/Long| {
-            ^toLong R|/Name.t|.R|kotlin/Number.toLong|()
+            ^toLong this@R|/Name|.R|/Name.t|.R|kotlin/Number.toLong|()
         }
 
-        public final operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
-            ^equals R|/Name.t|.R|kotlin/Any.equals|(R|<local>/other|)
-        }
-
-        public final fun toString(): R|kotlin/String| {
-            ^toString R|/Name.t|.R|kotlin/Any.toString|()
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.t|.R|kotlin/Any.toString|()
         }
 
         public final fun toByte(): R|kotlin/Byte| {
-            ^toByte R|/Name.t|.R|kotlin/Number.toByte|()
+            ^toByte this@R|/Name|.R|/Name.t|.R|kotlin/Number.toByte|()
         }
 
         public final fun toFloat(): R|kotlin/Float| {
-            ^toFloat R|/Name.t|.R|kotlin/Number.toFloat|()
+            ^toFloat this@R|/Name|.R|/Name.t|.R|kotlin/Number.toFloat|()
         }
 
         public final fun toInt(): R|kotlin/Int| {
-            ^toInt R|/Name.t|.R|kotlin/Number.toInt|()
+            ^toInt this@R|/Name|.R|/Name.t|.R|kotlin/Number.toInt|()
         }
 
     }

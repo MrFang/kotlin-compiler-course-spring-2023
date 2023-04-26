@@ -7,32 +7,24 @@ FILE: simple.kt
         private final val s: R|kotlin/String| = R|<local>/s|
             private get(): R|kotlin/String|
 
-        public final fun hashCode(): R|kotlin/Int| {
-            ^hashCode R|/Name.s|.R|kotlin/Any.hashCode|()
-        }
-
-        public final operator fun equals(other: R|kotlin/Any?|): R|kotlin/Boolean| {
-            ^equals R|/Name.s|.R|kotlin/String.equals|(R|<local>/other|)
-        }
-
-        public final fun toString(): R|kotlin/String| {
-            ^toString R|/Name.s|.R|kotlin/String.toString|()
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.s|.R|kotlin/String.toString|()
         }
 
         public final operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
-            ^compareTo R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/other|)
+            ^compareTo this@R|/Name|.R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/other|)
         }
 
         public final operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
-            ^get R|/Name.s|.R|kotlin/String.get|(R|<local>/index|)
+            ^get this@R|/Name|.R|/Name.s|.R|kotlin/String.get|(R|<local>/index|)
         }
 
         public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
-            ^plus R|/Name.s|.R|kotlin/String.plus|(R|<local>/other|)
+            ^plus this@R|/Name|.R|/Name.s|.R|kotlin/String.plus|(R|<local>/other|)
         }
 
         public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
-            ^subSequence R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+            ^subSequence this@R|/Name|.R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
         }
 
     }
