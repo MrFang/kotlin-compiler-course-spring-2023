@@ -52,6 +52,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("transitive.kt")
+    public void testTransitive() throws Exception {
+        runTest("testData/diagnostics/transitive.kt");
+    }
+
+    @Test
     @TestMetadata("transparent-class-with-type-args.kt")
     public void testTransparent_class_with_type_args() throws Exception {
         runTest("testData/diagnostics/transparent-class-with-type-args.kt");

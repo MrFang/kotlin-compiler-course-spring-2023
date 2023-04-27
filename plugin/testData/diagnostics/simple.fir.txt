@@ -28,3 +28,7 @@ FILE: simple.kt
         }
 
     }
+    public final val name: R|Name| = R|/Name.Name|(String(foobar))
+        public get(): R|Name|
+    public final val foo: R|kotlin/CharSequence| = R|/name|.R|/Name.subSequence|(Int(0), Int(3))
+        public get(): R|kotlin/CharSequence|

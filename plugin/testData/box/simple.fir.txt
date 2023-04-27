@@ -1,38 +1,38 @@
 FILE: simple.kt
     @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
-        public constructor(s: R|kotlin/String|): R|Name| {
+        public constructor(f: R|kotlin/String|): R|Name| {
             super<R|kotlin/Any|>()
         }
 
-        private final val s: R|kotlin/String| = R|<local>/s|
+        private final val f: R|kotlin/String| = R|<local>/f|
             private get(): R|kotlin/String|
 
         public final override fun toString(): R|kotlin/String| {
-            ^toString this@R|/Name|.R|/Name.s|.R|kotlin/String.toString|()
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/String.toString|()
         }
 
-        public final operator fun compareTo(_other: R|kotlin/String|): R|kotlin/Int| {
-            ^compareTo this@R|/Name|.R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/_other|)
+        public final operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+            ^compareTo this@R|/Name|.R|/Name.f|.R|kotlin/String.compareTo|(R|<local>/other|)
         }
 
-        public final operator fun get(_index: R|kotlin/Int|): R|kotlin/Char| {
-            ^get this@R|/Name|.R|/Name.s|.R|kotlin/String.get|(R|<local>/_index|)
+        public final operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+            ^get this@R|/Name|.R|/Name.f|.R|kotlin/String.get|(R|<local>/index|)
         }
 
-        public final operator fun plus(_other: R|kotlin/Any?|): R|kotlin/String| {
-            ^plus this@R|/Name|.R|/Name.s|.R|kotlin/String.plus|(R|<local>/_other|)
+        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus this@R|/Name|.R|/Name.f|.R|kotlin/String.plus|(R|<local>/other|)
         }
 
-        public final fun subSequence(_startIndex: R|kotlin/Int|, _endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
-            ^subSequence this@R|/Name|.R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/_startIndex|, R|<local>/_endIndex|)
+        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+            ^subSequence this@R|/Name|.R|/Name.f|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
         }
 
     }
     public final fun box(): R|kotlin/String| {
-        lval name: R|Name| = R|/Name.Name|(String(foobar))
-        lval s: R|kotlin/CharSequence| = R|<local>/name|.R|/Name.subSequence|(Int(0), Int(3))
+        lval name: R|Name| = R|/Name.Name|(String(foo))
+        lval s: R|kotlin/String| = R|<local>/name|.R|/Name.plus|(String(bar))
         ^box when () {
-            ==(R|<local>/s|, String(foo)) ->  {
+            ==(R|<local>/s|, String(foobar)) ->  {
                 String(OK)
             }
             else ->  {

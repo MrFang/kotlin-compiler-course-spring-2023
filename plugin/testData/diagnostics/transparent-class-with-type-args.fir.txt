@@ -40,3 +40,7 @@ FILE: transparent-class-with-type-args.kt
         }
 
     }
+    public final fun main(): R|kotlin/Unit| {
+        lval name: R|Name<kotlin/Double>| = R|/Name.Name|<R|kotlin/Double|>(Double(5.0))
+        lval i: R|kotlin/Int| = R|<local>/name|.R|SubstitutionOverride</Name.toInt: R|kotlin/Int|>|()
+    }

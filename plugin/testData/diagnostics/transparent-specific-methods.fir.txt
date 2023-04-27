@@ -1,5 +1,5 @@
 FILE: transparent-specific-methods.kt
-    @R|me/mrfang/transparent/Transparent|(methods = <implicitArrayOf>(String(toString))) @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+    @R|me/mrfang/transparent/Transparent|(methods = <implicitArrayOf>(String(plus))) @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
         public constructor(s: R|kotlin/String|): R|Name| {
             super<R|kotlin/Any|>()
         }
@@ -7,8 +7,14 @@ FILE: transparent-specific-methods.kt
         private final val s: R|kotlin/String| = R|<local>/s|
             private get(): R|kotlin/String|
 
-        public final override fun toString(): R|kotlin/String| {
-            ^toString this@R|/Name|.R|/Name.s|.R|kotlin/String.toString|()
+        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus this@R|/Name|.R|/Name.s|.R|kotlin/String.plus|(R|<local>/other|)
         }
 
     }
+    public final val name: R|Name| = R|/Name.Name|(String(foobar))
+        public get(): R|Name|
+    public final val s: R|kotlin/String| = R|/name|.R|/Name.plus|(String(baz))
+        public get(): R|kotlin/String|
+    public final val foo: <ERROR TYPE REF: Unresolved name: subSequence> = R|/name|.<Unresolved name: subSequence>#(Int(0), Int(3))
+        public get(): <ERROR TYPE REF: Unresolved name: subSequence>

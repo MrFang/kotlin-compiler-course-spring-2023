@@ -1,10 +1,16 @@
 FILE: methods-with-type-args.kt
-    public abstract class Foo : R|kotlin/Any| {
+    public final class Foo : R|kotlin/Any| {
         public constructor(): R|Foo| {
             super<R|kotlin/Any|>()
         }
 
-        public abstract fun <In, Out> foo(a: R|In|): R|Out|
+        public final fun <In> foo(a: R|In|): R|kotlin/Unit| {
+            ^foo Q|kotlin/Unit|
+        }
+
+        public final fun <InOut> bar(a: R|InOut|): R|InOut| {
+            ^bar R|<local>/a|
+        }
 
     }
     @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
@@ -15,12 +21,22 @@ FILE: methods-with-type-args.kt
         private final val f: R|Foo| = R|<local>/f|
             private get(): R|Foo|
 
+        public final fun <InOut> bar(a: R|InOut|): R|InOut| {
+            ^bar this@R|/Name|.R|/Name.f|.R|/Foo.bar|<R|InOut|>(R|<local>/a|)
+        }
+
         public final override fun toString(): R|kotlin/String| {
             ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
         }
 
-        public final fun <In, Out> foo(a: R|In|): R|Out| {
-            ^foo this@R|/Name|.R|/Name.f|.R|/Foo.foo|<R|In|, R|Out|>(R|<local>/a|)
+        public final fun <In> foo(a: R|In|): R|kotlin/Unit| {
+            ^foo this@R|/Name|.R|/Name.f|.R|/Foo.foo|<R|In|>(R|<local>/a|)
         }
 
+    }
+    public final fun main(): R|kotlin/Unit| {
+        lval name: R|Name| = R|/Name.Name|(R|/Foo.Foo|())
+        R|<local>/name|.R|/Name.foo<Inapplicable(INAPPLICABLE): /Name.foo>#|<<ERROR TYPE REF: Cannot infer argument for type parameter In>>(Int(3))
+        R|<local>/name|.R|/Name.foo<Inapplicable(INAPPLICABLE): /Name.foo>#|<<ERROR TYPE REF: Cannot infer argument for type parameter In>>(String(String))
+        lval fortyTwo: R|InOut| = R|<local>/name|.R|/Name.bar<Inapplicable(INAPPLICABLE): /Name.bar>#|<<ERROR TYPE REF: Cannot infer argument for type parameter InOut>>(Int(42))
     }

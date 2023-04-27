@@ -1,15 +1,15 @@
 import me.mrfang.transparent.Transparent
-@JvmInline
-value class Name(private val s: String) {
-    fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
-        return s.subSequence(startIndex, endIndex)
-    }
 
-    operator fun compareTo(_other: String): Int {
-        return s.compareTo(_other)
-    }
+class Foo {
+    fun foo(s: String) = Unit
+}
+
+@JvmInline
+value class Name(private val f: Foo) {
+    fun foo(s: String) = f.foo(s)
+    override final fun toString() = f.toString()
 }
 
 @Transparent
 @JvmInline
-value class Name_(private val s: String)
+value class Name_(private val f: Foo)

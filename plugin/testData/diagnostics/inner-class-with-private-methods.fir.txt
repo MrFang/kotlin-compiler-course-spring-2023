@@ -29,20 +29,15 @@ FILE: inner-class-with-private-methods.kt
             ^_public this@R|/Name|.R|/Name.f|.R|/Foo._public|()
         }
 
-        public final fun _protected(): R|kotlin/Unit| {
-            ^_protected this@R|/Name|.R|/Name.f|.R|/Foo._protected|()
-        }
-
-        public final fun _private(): R|kotlin/Unit| {
-            ^_private this@R|/Name|.R|/Name.f|.R|/Foo._private|()
-        }
-
         public final override fun toString(): R|kotlin/String| {
             ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
         }
 
-        public final fun _internal(): R|kotlin/Unit| {
-            ^_internal this@R|/Name|.R|/Name.f|.R|/Foo._internal|()
-        }
-
+    }
+    public final fun main(): R|kotlin/Unit| {
+        lval name: R|Name| = R|/Name.Name|(R|/Foo.Foo|())
+        R|<local>/name|.R|/Name._public|()
+        R|<local>/name|.<Unresolved name: _internal>#()
+        R|<local>/name|.<Unresolved name: _protected>#()
+        R|<local>/name|.<Unresolved name: _private>#()
     }

@@ -1,47 +1,45 @@
 FILE: fir-validaton.kt
-    @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
-        public constructor(s: R|kotlin/String|): R|Name| {
+    public final class Foo : R|kotlin/Any| {
+        public constructor(): R|Foo| {
             super<R|kotlin/Any|>()
         }
 
-        private final val s: R|kotlin/String| = R|<local>/s|
-            private get(): R|kotlin/String|
-
-        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
-            ^subSequence this@R|/Name|.R|/Name.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+        public final fun foo(s: R|kotlin/String|): R|kotlin/Unit| {
+            ^foo Q|kotlin/Unit|
         }
 
-        public final operator fun compareTo(_other: R|kotlin/String|): R|kotlin/Int| {
-            ^compareTo this@R|/Name|.R|/Name.s|.R|kotlin/String.compareTo|(R|<local>/_other|)
+    }
+    @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+        public constructor(f: R|Foo|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val f: R|Foo| = R|<local>/f|
+            private get(): R|Foo|
+
+        public final fun foo(s: R|kotlin/String|): R|kotlin/Unit| {
+            ^foo this@R|/Name|.R|/Name.f|.R|/Foo.foo|(R|<local>/s|)
+        }
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
         }
 
     }
     @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name_ : R|kotlin/Any| {
-        public constructor(s: R|kotlin/String|): R|Name_| {
+        public constructor(f: R|Foo|): R|Name_| {
             super<R|kotlin/Any|>()
         }
 
-        private final val s: R|kotlin/String| = R|<local>/s|
-            private get(): R|kotlin/String|
+        private final val f: R|Foo| = R|<local>/f|
+            private get(): R|Foo|
 
         public final override fun toString(): R|kotlin/String| {
-            ^toString this@R|/Name_|.R|/Name_.s|.R|kotlin/String.toString|()
+            ^toString this@R|/Name_|.R|/Name_.f|.R|kotlin/Any.toString|()
         }
 
-        public final operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
-            ^compareTo this@R|/Name_|.R|/Name_.s|.R|kotlin/String.compareTo|(R|<local>/other|)
-        }
-
-        public final operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
-            ^get this@R|/Name_|.R|/Name_.s|.R|kotlin/String.get|(R|<local>/index|)
-        }
-
-        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
-            ^plus this@R|/Name_|.R|/Name_.s|.R|kotlin/String.plus|(R|<local>/other|)
-        }
-
-        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
-            ^subSequence this@R|/Name_|.R|/Name_.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+        public final fun foo(s: R|kotlin/String|): R|kotlin/Unit| {
+            ^foo this@R|/Name_|.R|/Name_.f|.R|/Foo.foo|(R|<local>/s|)
         }
 
     }
