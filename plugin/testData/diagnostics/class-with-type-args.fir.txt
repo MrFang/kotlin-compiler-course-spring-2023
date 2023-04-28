@@ -1,19 +1,25 @@
 FILE: class-with-type-args.kt
-    public abstract class Foo<out T> : R|kotlin/Any| {
-        public constructor<out T>(): R|Foo<T>| {
+    public abstract class Foo<out T, in S> : R|kotlin/Any| {
+        public constructor<out T, in S>(): R|Foo<T, S>| {
             super<R|kotlin/Any|>()
         }
 
         public abstract fun foo(): R|T|
 
+        public abstract fun bar(s: R|S|): R|kotlin/Unit|
+
     }
     @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
-        public constructor(f: R|Foo<kotlin/String>|): R|Name| {
+        public constructor(f: R|Foo<kotlin/String, kotlin/Int>|): R|Name| {
             super<R|kotlin/Any|>()
         }
 
-        private final val f: R|Foo<kotlin/String>| = R|<local>/f|
-            private get(): R|Foo<kotlin/String>|
+        private final val f: R|Foo<kotlin/String, kotlin/Int>| = R|<local>/f|
+            private get(): R|Foo<kotlin/String, kotlin/Int>|
+
+        public final fun bar(s: R|kotlin/Int|): R|kotlin/Unit| {
+            ^bar this@R|/Name|.R|/Name.f|.R|SubstitutionOverride</Foo.bar: R|kotlin/Unit|>|(R|<local>/s|)
+        }
 
         public final override fun toString(): R|kotlin/String| {
             ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
@@ -25,16 +31,21 @@ FILE: class-with-type-args.kt
 
     }
     public final fun main(): R|kotlin/Unit| {
-        lval name: R|Name| = R|/Name.Name|(object : R|Foo<kotlin/String>| {
+        lval name: R|Name| = R|/Name.Name|(object : R|Foo<kotlin/String, kotlin/Int>| {
             private constructor(): R|<anonymous>| {
-                super<R|Foo<kotlin/String>|>()
+                super<R|Foo<kotlin/String, kotlin/Int>|>()
             }
 
             public open override fun foo(): R|kotlin/String| {
                 ^foo String(foo)
             }
 
+            public open override fun bar(i: R|kotlin/Int|): R|kotlin/Unit| {
+                ^bar Q|kotlin/Unit|
+            }
+
         }
         )
         lval s: R|kotlin/String| = R|<local>/name|.R|/Name.foo|().R|kotlin/String.plus|(String(bar))
+        R|<local>/name|.R|/Name.bar|(Int(3))
     }

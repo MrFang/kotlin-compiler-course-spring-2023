@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.fir.FirFunctionTarget
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.leastUpperBound
+import org.jetbrains.kotlin.fir.declarations.FirTypeParameterRef
 import org.jetbrains.kotlin.fir.declarations.utils.isInline
 import org.jetbrains.kotlin.fir.declarations.utils.visibility
 import org.jetbrains.kotlin.fir.expressions.buildResolvedArgumentList
@@ -34,7 +35,9 @@ import org.jetbrains.kotlin.fir.types.ConeKotlinType
 import org.jetbrains.kotlin.fir.types.builder.buildResolvedTypeRef
 import org.jetbrains.kotlin.fir.types.builder.buildTypeProjectionWithVariance
 import org.jetbrains.kotlin.fir.types.canBeNull
+import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
+import org.jetbrains.kotlin.fir.types.impl.ConeTypeParameterTypeImpl
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.Name
 
@@ -109,25 +112,22 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                     owner = classSymbol,
                     key = Key,
                     name = callableId.callableName,
-                    { typeParams ->
-                        val rawMapping = typeParams.map { it.symbol to it.symbol.toConeType() }
-                        val substitutor = ConeSubstitutorByMap(
-                            useSiteSession = session,
-                            substitution = mapOf(*rawMapping.toTypedArray())
-                        )
-                        substitutor.substituteOrSelf(functionSymbol.resolvedReturnType)
-                    }
+                    returnTypeProvider = substituteType(functionSymbol.resolvedReturnType)
                 ) {
+                    for (symbol in functionSymbol.typeParameterSymbols) {
+                        typeParameter(name = symbol.name, variance = symbol.variance, isReified = symbol.isReified) {
+                            symbol.resolvedBounds.forEach { bound(substituteType(it.coneType)) }
+                        }
+                    }
+
                     for (symbol in functionSymbol.valueParameterSymbols) {
                         valueParameter(
                             name = symbol.name,
-                            type = symbol.resolvedReturnType,
+                            typeProvider = substituteType(symbol.resolvedReturnType),
+                            isCrossinline = symbol.isCrossinline,
+                            isNoinline = symbol.isNoinline,
                             isVararg = symbol.isVararg
                         )
-                    }
-
-                    for (symbol in functionSymbol.typeParameterSymbols) {
-                        typeParameter(symbol.name)
                     }
 
                     with(functionSymbol.resolvedStatus) {
@@ -156,7 +156,12 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
                                             typeRef = buildResolvedTypeRef {
                                                 type = ConeClassLikeTypeImpl(
                                                     lookupTag = classSymbol.toLookupTag(),
-                                                    typeArguments = arrayOf(), // TODO
+                                                    typeArguments = classSymbol.typeParameterSymbols.map {
+                                                        ConeTypeParameterTypeImpl(
+                                                            lookupTag = it.toLookupTag(),
+                                                            isNullable = false
+                                                        )
+                                                    }.toTypedArray(),
                                                     isNullable = false
                                                 )
                                             }
@@ -232,6 +237,15 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         val t = property.resolvedReturnType.leastUpperBound(session)
 
         return Pair(property, t)
+    }
+
+    private fun substituteType(type: ConeKotlinType) = fun (params: List<FirTypeParameterRef>): ConeKotlinType {
+        val rawMapping = params.map { it.symbol to it.symbol.toConeType() }
+        val substitutor = ConeSubstitutorByMap(
+            useSiteSession = session,
+            substitution = mapOf(*rawMapping.toTypedArray())
+        )
+        return substitutor.substituteOrSelf(type)
     }
 
     object Key : GeneratedDeclarationKey()

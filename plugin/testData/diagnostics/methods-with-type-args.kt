@@ -2,7 +2,8 @@ import me.mrfang.transparent.Transparent
 
 class Foo {
     fun <In> foo(a: In) = Unit
-    fun <InOut> bar(a: InOut): InOut = a
+    fun <Out> bar(): Out = null!!
+    fun <T> id(a: T): T = a
 }
 
 @Transparent
@@ -12,6 +13,6 @@ value class Name(private val f: Foo)
 fun main() {
     val name = Name(Foo())
     name.foo(3)
-    name.foo("String")
-    val fortyTwo = name.bar(42)
+    val i = name.bar<Int>()
+    val fortyTwo = name.id(42)
 }
