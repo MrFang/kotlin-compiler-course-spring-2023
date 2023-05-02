@@ -248,5 +248,7 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         return substitutor.substituteOrSelf(type)
     }
 
-    object Key : GeneratedDeclarationKey()
+    object Key : GeneratedDeclarationKey() {
+        override fun toString(): String = "Transparent Generation Key"
+    }
 }

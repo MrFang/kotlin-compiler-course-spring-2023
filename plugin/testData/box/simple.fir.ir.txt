@@ -20,7 +20,7 @@ FILE fqName:<root> fileName:/simple.kt
           RETURN type=kotlin.Nothing from='private final fun <get-f> (): kotlin.String declared in <root>.Name'
             GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:f type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
               receiver: GET_VAR '<this>: <root>.Name declared in <root>.Name.<get-f>' type=<root>.Name origin=null
-    FUN GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:toString visibility:public modality:FINAL <> ($this:<root>.Name) returnType:kotlin.String
+    FUN GENERATED[Transparent Generation Key] name:toString visibility:public modality:FINAL <> ($this:<root>.Name) returnType:kotlin.String
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
       $this: VALUE_PARAMETER name:<this> type:<root>.Name
@@ -29,37 +29,37 @@ FILE fqName:<root> fileName:/simple.kt
           CALL 'public final fun toString (): kotlin.String declared in kotlin.String' type=kotlin.String origin=null
             $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
               $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.toString' type=<root>.Name origin=null
-    FUN GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:compareTo visibility:public modality:FINAL <> ($this:<root>.Name, other:kotlin.String) returnType:kotlin.Int [operator]
+    FUN GENERATED[Transparent Generation Key] name:compareTo visibility:public modality:FINAL <> ($this:<root>.Name, other:kotlin.String) returnType:kotlin.Int [operator]
       $this: VALUE_PARAMETER name:<this> type:<root>.Name
-      VALUE_PARAMETER GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:other index:0 type:kotlin.String
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:other index:0 type:kotlin.String
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun compareTo (other: kotlin.String): kotlin.Int [operator] declared in <root>.Name'
           CALL 'public open fun compareTo (other: kotlin.String): kotlin.Int [operator] declared in kotlin.String' type=kotlin.Int origin=null
             $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
               $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.compareTo' type=<root>.Name origin=null
             other: GET_VAR 'other: kotlin.String declared in <root>.Name.compareTo' type=kotlin.String origin=null
-    FUN GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:get visibility:public modality:FINAL <> ($this:<root>.Name, index:kotlin.Int) returnType:kotlin.Char [operator]
+    FUN GENERATED[Transparent Generation Key] name:get visibility:public modality:FINAL <> ($this:<root>.Name, index:kotlin.Int) returnType:kotlin.Char [operator]
       $this: VALUE_PARAMETER name:<this> type:<root>.Name
-      VALUE_PARAMETER GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:index index:0 type:kotlin.Int
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:index index:0 type:kotlin.Int
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun get (index: kotlin.Int): kotlin.Char [operator] declared in <root>.Name'
           CALL 'public open fun get (index: kotlin.Int): kotlin.Char [operator] declared in kotlin.String' type=kotlin.Char origin=null
             $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
               $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.get' type=<root>.Name origin=null
             index: GET_VAR 'index: kotlin.Int declared in <root>.Name.get' type=kotlin.Int origin=null
-    FUN GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:plus visibility:public modality:FINAL <> ($this:<root>.Name, other:kotlin.Any?) returnType:kotlin.String [operator]
+    FUN GENERATED[Transparent Generation Key] name:plus visibility:public modality:FINAL <> ($this:<root>.Name, other:kotlin.Any?) returnType:kotlin.String [operator]
       $this: VALUE_PARAMETER name:<this> type:<root>.Name
-      VALUE_PARAMETER GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:other index:0 type:kotlin.Any?
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:other index:0 type:kotlin.Any?
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun plus (other: kotlin.Any?): kotlin.String [operator] declared in <root>.Name'
           CALL 'public final fun plus (other: kotlin.Any?): kotlin.String [operator] declared in kotlin.String' type=kotlin.String origin=null
             $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
               $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.plus' type=<root>.Name origin=null
             other: GET_VAR 'other: kotlin.Any? declared in <root>.Name.plus' type=kotlin.Any? origin=null
-    FUN GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:subSequence visibility:public modality:FINAL <> ($this:<root>.Name, startIndex:kotlin.Int, endIndex:kotlin.Int) returnType:kotlin.CharSequence
+    FUN GENERATED[Transparent Generation Key] name:subSequence visibility:public modality:FINAL <> ($this:<root>.Name, startIndex:kotlin.Int, endIndex:kotlin.Int) returnType:kotlin.CharSequence
       $this: VALUE_PARAMETER name:<this> type:<root>.Name
-      VALUE_PARAMETER GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:startIndex index:0 type:kotlin.Int
-      VALUE_PARAMETER GENERATED[me.mrfang.transparent.fir.TransparentGenerator$Key@276c04ae] name:endIndex index:1 type:kotlin.Int
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:startIndex index:0 type:kotlin.Int
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:endIndex index:1 type:kotlin.Int
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun subSequence (startIndex: kotlin.Int, endIndex: kotlin.Int): kotlin.CharSequence declared in <root>.Name'
           CALL 'public open fun subSequence (startIndex: kotlin.Int, endIndex: kotlin.Int): kotlin.CharSequence declared in kotlin.String' type=kotlin.CharSequence origin=null
