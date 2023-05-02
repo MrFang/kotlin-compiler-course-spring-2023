@@ -1,0 +1,10 @@
+FILE: transparent-no-inline.kt
+    @R|me/mrfang/transparent/Transparent|() public final class Name : R|kotlin/Any| {
+        public constructor(s: R|kotlin/String|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val s: R|kotlin/String| = R|<local>/s|
+            private get(): R|kotlin/String|
+
+    }

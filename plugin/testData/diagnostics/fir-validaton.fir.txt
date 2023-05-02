@@ -1,0 +1,45 @@
+FILE: fir-validaton.kt
+    public final class Foo : R|kotlin/Any| {
+        public constructor(): R|Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final fun foo(s: R|kotlin/String|): R|kotlin/Unit| {
+            ^foo Q|kotlin/Unit|
+        }
+
+    }
+    @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+        public constructor(f: R|Foo|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val f: R|Foo| = R|<local>/f|
+            private get(): R|Foo|
+
+        public final fun foo(s: R|kotlin/String|): R|kotlin/Unit| {
+            ^foo this@R|/Name|.R|/Name.f|.R|/Foo.foo|(R|<local>/s|)
+        }
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
+        }
+
+    }
+    @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name_ : R|kotlin/Any| {
+        public constructor(f: R|Foo|): R|Name_| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val f: R|Foo| = R|<local>/f|
+            private get(): R|Foo|
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name_|.R|/Name_.f|.R|kotlin/Any.toString|()
+        }
+
+        public final fun foo(s: R|kotlin/String|): R|kotlin/Unit| {
+            ^foo this@R|/Name_|.R|/Name_.f|.R|/Foo.foo|(R|<local>/s|)
+        }
+
+    }

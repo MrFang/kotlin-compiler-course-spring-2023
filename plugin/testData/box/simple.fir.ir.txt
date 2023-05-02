@@ -1,0 +1,126 @@
+FILE fqName:<root> fileName:/simple.kt
+  CLASS CLASS name:Name modality:FINAL visibility:public [value] superTypes:[kotlin.Any]
+    annotations:
+      Transparent(methods = <null>)
+      JvmInline
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:<root>.Name
+    CONSTRUCTOR visibility:public <> (f:kotlin.String) returnType:<root>.Name [primary]
+      VALUE_PARAMETER name:f index:0 type:kotlin.String
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Name modality:FINAL visibility:public [value] superTypes:[kotlin.Any]'
+    PROPERTY name:f visibility:private modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:f type:kotlin.String visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'f: kotlin.String declared in <root>.Name.<init>' type=kotlin.String origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-f> visibility:private modality:FINAL <> ($this:<root>.Name) returnType:kotlin.String
+        correspondingProperty: PROPERTY name:f visibility:private modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:<root>.Name
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='private final fun <get-f> (): kotlin.String declared in <root>.Name'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:f type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: <root>.Name declared in <root>.Name.<get-f>' type=<root>.Name origin=null
+    FUN GENERATED[Transparent Generation Key] name:toString visibility:public modality:FINAL <> ($this:<root>.Name) returnType:kotlin.String
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:<root>.Name
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun toString (): kotlin.String declared in <root>.Name'
+          CALL 'public final fun toString (): kotlin.String declared in kotlin.String' type=kotlin.String origin=null
+            $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
+              $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.toString' type=<root>.Name origin=null
+    FUN GENERATED[Transparent Generation Key] name:compareTo visibility:public modality:FINAL <> ($this:<root>.Name, other:kotlin.String) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Name
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:other index:0 type:kotlin.String
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun compareTo (other: kotlin.String): kotlin.Int [operator] declared in <root>.Name'
+          CALL 'public open fun compareTo (other: kotlin.String): kotlin.Int [operator] declared in kotlin.String' type=kotlin.Int origin=null
+            $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
+              $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.compareTo' type=<root>.Name origin=null
+            other: GET_VAR 'other: kotlin.String declared in <root>.Name.compareTo' type=kotlin.String origin=null
+    FUN GENERATED[Transparent Generation Key] name:get visibility:public modality:FINAL <> ($this:<root>.Name, index:kotlin.Int) returnType:kotlin.Char [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Name
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:index index:0 type:kotlin.Int
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun get (index: kotlin.Int): kotlin.Char [operator] declared in <root>.Name'
+          CALL 'public open fun get (index: kotlin.Int): kotlin.Char [operator] declared in kotlin.String' type=kotlin.Char origin=null
+            $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
+              $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.get' type=<root>.Name origin=null
+            index: GET_VAR 'index: kotlin.Int declared in <root>.Name.get' type=kotlin.Int origin=null
+    FUN GENERATED[Transparent Generation Key] name:plus visibility:public modality:FINAL <> ($this:<root>.Name, other:kotlin.Any?) returnType:kotlin.String [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Name
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun plus (other: kotlin.Any?): kotlin.String [operator] declared in <root>.Name'
+          CALL 'public final fun plus (other: kotlin.Any?): kotlin.String [operator] declared in kotlin.String' type=kotlin.String origin=null
+            $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
+              $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.plus' type=<root>.Name origin=null
+            other: GET_VAR 'other: kotlin.Any? declared in <root>.Name.plus' type=kotlin.Any? origin=null
+    FUN GENERATED[Transparent Generation Key] name:subSequence visibility:public modality:FINAL <> ($this:<root>.Name, startIndex:kotlin.Int, endIndex:kotlin.Int) returnType:kotlin.CharSequence
+      $this: VALUE_PARAMETER name:<this> type:<root>.Name
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:startIndex index:0 type:kotlin.Int
+      VALUE_PARAMETER GENERATED[Transparent Generation Key] name:endIndex index:1 type:kotlin.Int
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun subSequence (startIndex: kotlin.Int, endIndex: kotlin.Int): kotlin.CharSequence declared in <root>.Name'
+          CALL 'public open fun subSequence (startIndex: kotlin.Int, endIndex: kotlin.Int): kotlin.CharSequence declared in kotlin.String' type=kotlin.CharSequence origin=null
+            $this: CALL 'private final fun <get-f> (): kotlin.String declared in <root>.Name' type=kotlin.String origin=GET_PROPERTY
+              $this: GET_VAR '<this>: <root>.Name declared in <root>.Name.subSequence' type=<root>.Name origin=null
+            startIndex: GET_VAR 'startIndex: kotlin.Int declared in <root>.Name.subSequence' type=kotlin.Int origin=null
+            endIndex: GET_VAR 'endIndex: kotlin.Int declared in <root>.Name.subSequence' type=kotlin.Int origin=null
+    FUN GENERATED_SINGLE_FIELD_VALUE_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:<root>.Name, other:kotlin.Any?) returnType:kotlin.Boolean
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean [operator] declared in kotlin.Any
+      $this: VALUE_PARAMETER GENERATED_SINGLE_FIELD_VALUE_CLASS_MEMBER name:<this> type:<root>.Name
+      VALUE_PARAMETER GENERATED_SINGLE_FIELD_VALUE_CLASS_MEMBER name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: TYPE_OP type=kotlin.Boolean origin=NOT_INSTANCEOF typeOperand=<root>.Name
+              GET_VAR 'other: kotlin.Any? declared in <root>.Name.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Name'
+              CONST Boolean type=kotlin.Boolean value=false
+        VAR IR_TEMPORARY_VARIABLE name:tmp_0 type:<root>.Name [val]
+          TYPE_OP type=<root>.Name origin=CAST typeOperand=<root>.Name
+            GET_VAR 'other: kotlin.Any? declared in <root>.Name.equals' type=kotlin.Any? origin=null
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:f type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+                  receiver: GET_VAR '<this>: <root>.Name declared in <root>.Name.equals' type=<root>.Name origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:f type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+                  receiver: GET_VAR 'val tmp_0: <root>.Name [val] declared in <root>.Name.equals' type=<root>.Name origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Name'
+              CONST Boolean type=kotlin.Boolean value=false
+        RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Name'
+          CONST Boolean type=kotlin.Boolean value=true
+    FUN GENERATED_SINGLE_FIELD_VALUE_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:<root>.Name) returnType:kotlin.Int
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER GENERATED_SINGLE_FIELD_VALUE_CLASS_MEMBER name:<this> type:<root>.Name
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in <root>.Name'
+          CALL 'public open fun hashCode (): kotlin.Int [fake_override] declared in kotlin.String' type=kotlin.Int origin=null
+            $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:f type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: <root>.Name declared in <root>.Name.hashCode' type=<root>.Name origin=null
+  FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
+    BLOCK_BODY
+      VAR name:name type:<root>.Name [val]
+        CONSTRUCTOR_CALL 'public constructor <init> (f: kotlin.String) [primary] declared in <root>.Name' type=<root>.Name origin=null
+          f: CONST String type=kotlin.String value="foo"
+      VAR name:s type:kotlin.String [val]
+        CALL 'public final fun plus (other: kotlin.Any?): kotlin.String [operator] declared in <root>.Name' type=kotlin.String origin=PLUS
+          $this: GET_VAR 'val name: <root>.Name [val] declared in <root>.box' type=<root>.Name origin=null
+          other: CONST String type=kotlin.String value="bar"
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
+        WHEN type=kotlin.String origin=IF
+          BRANCH
+            if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
+              arg0: GET_VAR 'val s: kotlin.String [val] declared in <root>.box' type=kotlin.String origin=null
+              arg1: CONST String type=kotlin.String value="foobar"
+            then: CONST String type=kotlin.String value="OK"
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: STRING_CONCATENATION type=kotlin.String
+              CONST String type=kotlin.String value="Failure: "
+              GET_VAR 'val s: kotlin.String [val] declared in <root>.box' type=kotlin.String origin=null

@@ -1,19 +1,53 @@
-# Kotlin Compiler Plugin template
+# Kotlin Compiler Transparent plugin
 
-This is a template project for compiler plugins for K2 Kotlin compiler
+## Usage
+```kotlin
+@JvmInline
+@Transparent
+value class Name(private val s: String)
 
-## Details
+val name = Name("fang")
+name.subSequence(1, 2)
+```
 
-Project contains two modules:
-- root module is a module for the compiler plugin itself
-- `:plugin-annotations` module contains annotations which can be used in user code for interacting with compiler plugin
+You can choose which methods should be generated (by default all of them)
 
-Extension point registration:
-- K2 Frontend (FIR) extensions can be registered in `SimplePluginRegistrar`
-- All other extensions (including K1 frontend and backend) can be registered in `SimplePluginComponentRegistrar`
+```kotlin
+@JvmInline
+@Transparent(methods=["toString"])
+value class Age(private val i: Int)
 
-## Tests
+val age = Age(21)
+age.toString() // OK
+age + 12 // Error
+```
 
-Kotlin compiler test framework is set up for this project. To add a new test you need to put new `.kt` file in `testData` 
-directory (`testData/box` for codegen tests and `testData/diagnostics` for diagnostics tests) and run `:generateTests`
-Gradle task. This task will update generated tests classes and generate new tests methods for added tests
+## TODO
+- Add ability to generate methods with value class as parameter. For example
+```kotlin
+@JvmInline
+@Transparent(methods=["plus"])
+value class Age(private val i: Int)
+
+val a1 = Age(10)
+val a2 = Age(20)
+require((a1 + a2) is Age)
+```
+
+- Add ability to create presets of deriving
+
+```kotlin
+@Transparent(methods = ["toString", "plus"])
+annotation class StringPlus
+
+@JvmInline
+@StringPlus
+value class Name(private val s: String)
+
+@JvmInline
+@StringPlus
+value class Age(private val i: Int)
+```
+
+- Generate internal functions for classes in the same module
+- Generate `val`s

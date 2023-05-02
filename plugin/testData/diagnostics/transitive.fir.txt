@@ -1,0 +1,63 @@
+FILE: transitive.kt
+    @R|kotlin/jvm/JvmInline|() @R|me/mrfang/transparent/Transparent|() public final inline class B : R|kotlin/Any| {
+        public constructor(a: R|A|): R|B| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val a: R|A| = R|<local>/a|
+            private get(): R|A|
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/B|.R|/B.a|.R|/A.toString|()
+        }
+
+        public final operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+            ^compareTo this@R|/B|.R|/B.a|.R|/A.compareTo|(R|<local>/other|)
+        }
+
+        public final operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+            ^get this@R|/B|.R|/B.a|.R|/A.get|(R|<local>/index|)
+        }
+
+        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus this@R|/B|.R|/B.a|.R|/A.plus|(R|<local>/other|)
+        }
+
+        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+            ^subSequence this@R|/B|.R|/B.a|.R|/A.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+        }
+
+    }
+    @R|kotlin/jvm/JvmInline|() @R|me/mrfang/transparent/Transparent|() public final inline class A : R|kotlin/Any| {
+        public constructor(s: R|kotlin/String|): R|A| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val s: R|kotlin/String| = R|<local>/s|
+            private get(): R|kotlin/String|
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/A|.R|/A.s|.R|kotlin/String.toString|()
+        }
+
+        public final operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+            ^compareTo this@R|/A|.R|/A.s|.R|kotlin/String.compareTo|(R|<local>/other|)
+        }
+
+        public final operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+            ^get this@R|/A|.R|/A.s|.R|kotlin/String.get|(R|<local>/index|)
+        }
+
+        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus this@R|/A|.R|/A.s|.R|kotlin/String.plus|(R|<local>/other|)
+        }
+
+        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+            ^subSequence this@R|/A|.R|/A.s|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+        }
+
+    }
+    public final fun main(): R|kotlin/Unit| {
+        lval b: R|B| = R|/B.B|(R|/A.A|(String(foo)))
+        R|<local>/b|.R|/B.subSequence|(Int(0), Int(1))
+    }

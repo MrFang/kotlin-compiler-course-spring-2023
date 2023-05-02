@@ -1,0 +1,43 @@
+FILE: simple.kt
+    @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+        public constructor(f: R|kotlin/String|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val f: R|kotlin/String| = R|<local>/f|
+            private get(): R|kotlin/String|
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/String.toString|()
+        }
+
+        public final operator fun compareTo(other: R|kotlin/String|): R|kotlin/Int| {
+            ^compareTo this@R|/Name|.R|/Name.f|.R|kotlin/String.compareTo|(R|<local>/other|)
+        }
+
+        public final operator fun get(index: R|kotlin/Int|): R|kotlin/Char| {
+            ^get this@R|/Name|.R|/Name.f|.R|kotlin/String.get|(R|<local>/index|)
+        }
+
+        public final operator fun plus(other: R|kotlin/Any?|): R|kotlin/String| {
+            ^plus this@R|/Name|.R|/Name.f|.R|kotlin/String.plus|(R|<local>/other|)
+        }
+
+        public final fun subSequence(startIndex: R|kotlin/Int|, endIndex: R|kotlin/Int|): R|kotlin/CharSequence| {
+            ^subSequence this@R|/Name|.R|/Name.f|.R|kotlin/String.subSequence|(R|<local>/startIndex|, R|<local>/endIndex|)
+        }
+
+    }
+    public final fun box(): R|kotlin/String| {
+        lval name: R|Name| = R|/Name.Name|(String(foo))
+        lval s: R|kotlin/String| = R|<local>/name|.R|/Name.plus|(String(bar))
+        ^box when () {
+            ==(R|<local>/s|, String(foobar)) ->  {
+                String(OK)
+            }
+            else ->  {
+                <strcat>(String(Failure: ), R|<local>/s|)
+            }
+        }
+
+    }

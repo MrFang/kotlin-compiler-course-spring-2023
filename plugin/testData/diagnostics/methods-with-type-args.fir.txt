@@ -1,0 +1,50 @@
+FILE: methods-with-type-args.kt
+    public final class Foo : R|kotlin/Any| {
+        public constructor(): R|Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final fun <In> foo(a: R|In|): R|kotlin/Unit| {
+            ^foo Q|kotlin/Unit|
+        }
+
+        public final fun <Out> bar(): R|Out| {
+            ^bar Null(null)!!
+        }
+
+        public final fun <T> id(a: R|T|): R|T| {
+            ^id R|<local>/a|
+        }
+
+    }
+    @R|me/mrfang/transparent/Transparent|() @R|kotlin/jvm/JvmInline|() public final inline class Name : R|kotlin/Any| {
+        public constructor(f: R|Foo|): R|Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final val f: R|Foo| = R|<local>/f|
+            private get(): R|Foo|
+
+        public final fun <Out> bar(): R|Out| {
+            ^bar this@R|/Name|.R|/Name.f|.R|/Foo.bar|<R|Out|>()
+        }
+
+        public final fun <T> id(a: R|T|): R|T| {
+            ^id this@R|/Name|.R|/Name.f|.R|/Foo.id|<R|T|>(R|<local>/a|)
+        }
+
+        public final override fun toString(): R|kotlin/String| {
+            ^toString this@R|/Name|.R|/Name.f|.R|kotlin/Any.toString|()
+        }
+
+        public final fun <In> foo(a: R|In|): R|kotlin/Unit| {
+            ^foo this@R|/Name|.R|/Name.f|.R|/Foo.foo|<R|In|>(R|<local>/a|)
+        }
+
+    }
+    public final fun main(): R|kotlin/Unit| {
+        lval name: R|Name| = R|/Name.Name|(R|/Foo.Foo|())
+        R|<local>/name|.R|/Name.foo|<R|kotlin/Int|>(Int(3))
+        lval i: R|kotlin/Int| = R|<local>/name|.R|/Name.bar|<R|kotlin/Int|>()
+        lval fortyTwo: R|kotlin/Int| = R|<local>/name|.R|/Name.id|<R|kotlin/Int|>(Int(42))
+    }

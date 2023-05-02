@@ -4,8 +4,8 @@ pluginManagement {
         gradlePluginPortal()
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
     }
-    
 }
-rootProject.name = "kotlin-compiler-course-examples"
+rootProject.name = "transparent-kotlin-plugin"
 
-include("plugin-annotations")
+include("annotations")
+include("plugin")
