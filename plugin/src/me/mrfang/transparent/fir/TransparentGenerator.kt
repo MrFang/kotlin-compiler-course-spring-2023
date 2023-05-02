@@ -23,7 +23,6 @@ import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
 import org.jetbrains.kotlin.fir.references.builder.buildExplicitThisReference
 import org.jetbrains.kotlin.fir.references.builder.buildResolvedNamedReference
-import org.jetbrains.kotlin.fir.resolve.scope
 import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutorByMap
 import org.jetbrains.kotlin.fir.scopes.getFunctions
 import org.jetbrains.kotlin.fir.scopes.impl.toConeType
@@ -31,6 +30,7 @@ import org.jetbrains.kotlin.fir.symbols.SymbolInternals
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirNamedFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirTypeParameterSymbol
 import org.jetbrains.kotlin.fir.types.ConeKotlinType
 import org.jetbrains.kotlin.fir.types.builder.buildResolvedTypeRef
 import org.jetbrains.kotlin.fir.types.builder.buildTypeProjectionWithVariance
@@ -108,6 +108,7 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         return scope.getFunctions(callableId.callableName)
             .filter { it.visibility == Visibilities.Public }
             .map { functionSymbol ->
+                val substituteType = substitutionProvider(functionSymbol.typeParameterSymbols)
                 val generatedFunction = createMemberFunction(
                     owner = classSymbol,
                     key = Key,
@@ -239,14 +240,17 @@ class TransparentGenerator(session: FirSession) : FirDeclarationGenerationExtens
         return Pair(property, t)
     }
 
-    private fun substituteType(type: ConeKotlinType) = fun (params: List<FirTypeParameterRef>): ConeKotlinType {
-        val rawMapping = params.map { it.symbol to it.symbol.toConeType() }
-        val substitutor = ConeSubstitutorByMap(
-            useSiteSession = session,
-            substitution = mapOf(*rawMapping.toTypedArray())
-        )
-        return substitutor.substituteOrSelf(type)
-    }
+    private fun substitutionProvider(originTypeArgsSymbols: List<FirTypeParameterSymbol>) =
+        fun (type: ConeKotlinType) =
+            fun (generatedParams: List<FirTypeParameterRef>): ConeKotlinType {
+                val rawMapping = originTypeArgsSymbols.zip(generatedParams)
+                    .map { (original, generated) -> original to generated.symbol.toConeType() }
+                val substitutor = ConeSubstitutorByMap(
+                    useSiteSession = session,
+                    substitution = mapOf(*rawMapping.toTypedArray())
+                )
+                return substitutor.substituteOrSelf(type)
+            }
 
     object Key : GeneratedDeclarationKey() {
         override fun toString(): String = "Transparent Generation Key"
